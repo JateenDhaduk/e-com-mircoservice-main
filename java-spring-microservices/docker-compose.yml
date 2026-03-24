@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # --- Databases ---
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecom_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ecom-network
+    restart: unless-stopped
+
+  # --- Message Broker ---
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - ecom-network
+    restart: unless-stopped
+
+  # --- Core Services (Placeholder for later Dockerfiles) ---
+  # api-gateway:
+  # user-service:
+  # product-service:
+  # order-service:
+  # inventory-service:
+  # payment-service:
+
+volumes:
+  postgres-data:
+
+networks:
+  ecom-network:
+    driver: bridge
