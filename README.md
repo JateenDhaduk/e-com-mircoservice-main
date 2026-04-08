@@ -1,5 +1,6 @@
 # 🛒 E-Commerce Microservices
 
+![E-Commerce Microservices Architecture Banner](assets/banner.png)
 A scalable e-commerce microservices architecture built with **Java 21** and **Spring Boot 3.4**. This project demonstrates best practices for building distributed systems with microservices patterns including service discovery, API gateway routing, JWT authentication, and inter-service communication.
 
 ## 📋 Table of Contents
