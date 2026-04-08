@@ -36,6 +36,10 @@ spring:
           predicates:
             - Path=/api/payments/**
 
+auth:
+  service:
+    url: http://localhost:8081
+
 eureka:
   client:
     service-url:
