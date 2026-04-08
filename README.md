@@ -33,25 +33,51 @@ This e-commerce microservices platform is designed to provide a modular, scalabl
 
 ## 🏗️ Architecture
 
-```
-                    ┌──────────────────┐
-                    │ Discovery Service│  (Eureka Server, :8761)
-                    └────────▲─────────┘
-                             │ registers
-    ┌────────────────────────┼────────────────────────┐
-    │                        │                        │
-┌───┴──────┐  ┌──────────────┴───────────┐  ┌────────┴─────────┐
-│API Gateway│  │     E-Commerce Services  │  │   Database       │
-│  :8080    │  │                          │  │                  │
-│           │  │  user-service     :8081  │  │  MySQL    :3306  │
-│ lb://  ───┼──│  product-service  :8082  │  │                  │
-│ routing   │  │  order-service    :8083  │  │  5 Databases:    │
-│ + JWT     │  │  inventory-service:8084  │  │  ecom_user_db    │
-│ filter    │  │  payment-service  :8085  │  │  ecom_product_db │
-└───────────┘  │                          │  │  ecom_order_db   │
-               └──────────────────────────┘  │  ecom_inventory_db│
-                                             │  ecom_payment_db │
-                                             └──────────────────┘
+```mermaid
+flowchart TD
+    %% Define styles for nodes
+    classDef client fill:#2D3748,stroke:#4A5568,color:#fff,stroke-width:2px;
+    classDef gateway fill:#3182CE,stroke:#2B6CB0,color:#fff,stroke-width:2px;
+    classDef service fill:#38A169,stroke:#2F855A,color:#fff,stroke-width:2px;
+    classDef db fill:#D69E2E,stroke:#B7791F,color:#fff,stroke-width:2px;
+    classDef registry fill:#805AD5,stroke:#6B46C1,color:#fff,stroke-width:2px;
+
+    Client([📱 Client App / Web browser]):::client -->|HTTP Request| API_Gateway
+    
+    API_Gateway{{"🌐 API Gateway (:8080)"}}:::gateway
+    
+    API_Gateway -.->|1. Authenticates token| UserService
+    API_Gateway -->|2. Routes lb://request| Services
+    
+    subgraph Services ["⚙️ E-Commerce Microservices"]
+        direction TB
+        UserService["👤 User Service (:8081)"]:::service
+        ProductService["🛒 Product Service (:8082)"]:::service
+        OrderService["📦 Order Service (:8083)"]:::service
+        InventoryService["🏭 Inventory Service (:8084)"]:::service
+        PaymentService["💳 Payment Service (:8085)"]:::service
+    end
+    
+    subgraph Databases ["🗄️ Persistence Layer"]
+        MySQL[("🐬 MySQL (:3306)")]:::db
+    end
+
+    UserService -->|Reads/Writes| MySQL
+    ProductService -->|Reads/Writes| MySQL
+    OrderService -->|Reads/Writes| MySQL
+    InventoryService -->|Reads/Writes| MySQL
+    PaymentService -->|Reads/Writes| MySQL
+    
+    subgraph Discovery ["🔍 Service Registry"]
+        Eureka(("📍 Eureka Server (:8761)")):::registry
+    end
+    
+    API_Gateway -.->|Locates Service IPs| Eureka
+    UserService -.->|Registers| Eureka
+    ProductService -.->|Registers| Eureka
+    OrderService -.->|Registers| Eureka
+    InventoryService -.->|Registers| Eureka
+    PaymentService -.->|Registers| Eureka
 ```
 
 ## 📁 Project Structure
