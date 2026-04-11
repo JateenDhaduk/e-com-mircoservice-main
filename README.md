@@ -142,6 +142,7 @@ Before you begin, ensure you have the following installed:
 - 📦 Maven 3.6 or higher
 - 🐬 MySQL 8.x (running on port 3306)
 - 🔧 Git
+- 🐳 Docker Desktop (for containerization)
 - 💻 IDE: IntelliJ IDEA or VS Code with Java extensions
 
 ## 🔒 Environment Variables
