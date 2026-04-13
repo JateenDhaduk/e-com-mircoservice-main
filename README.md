@@ -29,7 +29,7 @@ This e-commerce microservices platform is designed to provide a modular, scalabl
 - 🔍 Service Discovery using Netflix Eureka
 - 🌐 Dynamic API Gateway routing (`lb://` load-balanced URIs)
 - 🔐 JWT-based authentication and authorization
-- 📦 RESTful CRUD APIs for all domains
+- 📦 RESTful CRUD APIs for all microservices
 - 🗄️ MySQL database with seed data for all services
 - 🔒 Secure configuration using environment variables (no hardcoded credentials)
 
