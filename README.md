@@ -133,6 +133,7 @@ java-spring-microservices/
 | **Database** | MySQL 8.x |
 | **ORM** | Hibernate / Spring Data JPA |
 | **Container** | Docker & Docker Compose |
+| **Testing** | JUnit 5 & Mockito |
 
 ## ✅ Prerequisites
 
